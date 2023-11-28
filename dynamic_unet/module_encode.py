@@ -24,13 +24,16 @@ def densenet201():
 @UNET_ENCODE.register()
 def efficientnet(name='5'):
     from efficientnet_pytorch import EfficientNet
+
+
     class EfficientNet_(EfficientNet):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
 
         def forward(self, inputs):
-            x = self.extract_features(inputs)
-            return x
+            return self.extract_features(inputs)
+
+
     print('in_channels=', in_channels)
     return EfficientNet_.from_pretrained(f'efficientnet-b{name}')
 
